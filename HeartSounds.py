@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import pandas, wave, struct
-from pylab import *
-from os import listdir
-from os.path import isfile, join
-import matplotlib.pyplot as plt
-from scipy.fftpack import fft
-from scipy.io import wavfile as wav
-import numpy as np
-import wave
-=======
 import numpy, pandas, wave, struct
 import seqlearn.hmm as seq
 import matplotlib.pyplot as plt
@@ -18,7 +7,6 @@ from os import listdir
 from os.path import isfile, join
 from copy import deepcopy
 
->>>>>>> c923be35428dc3ec9c9693267f29258ae9d250f7
 
 def get_raw_data(file):
     FNAME = 'set_a/' + file
@@ -134,19 +122,7 @@ def calculate_percent_correct(predicted, actual):
 filenames, times, samples = get_set_a_data()
 s1vals, s2vals, training_xlabels, training_ylabels, training_indices, seq_xlabels, seq_ylabels, seq_lengths = make_set_a_labels()
 
-<<<<<<< HEAD
-for i in range(0,21):
-    index = training_indices[i]
-    figure()
-    plot_waves_with_labels(times[index], samples[index], s1vals[i], s2vals[i]) 
-    figure()
-    rate, data = wav.read('set_a/' + filenames[training_indices[i]])
-    fft_out = fft(data)
-    plt.plot(data, np.abs(fft_out))
-    plt.show()
 
-
-=======
 for i in range(0,len(training_indices)):
     index = training_indices[i]
     plot_waves_with_labels(times[index], samples[index], s1vals[i], s2vals[i])
@@ -160,8 +136,6 @@ actual_results[actual_results == 'S1'] = 0
 actual_results[actual_results == 'Systole'] = 1
 actual_results[actual_results == 'S2'] = 2
 actual_results[actual_results == 'Diastole'] = 3
->>>>>>> c923be35428dc3ec9c9693267f29258ae9d250f7
-
 
 modelS = seq.MultinomialHMM()
 modelS.fit(numpy.vstack(numpy.array(seq_xlabels)), numpy.vstack(numpy.array(seq_ylabels)), numpy.array(seq_lengths))
