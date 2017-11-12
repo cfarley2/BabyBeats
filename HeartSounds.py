@@ -125,8 +125,6 @@ s1vals, s2vals, training_xlabels, training_ylabels, training_indices, seq_xlabel
 for i in range(0,len(training_indices)):
     index = training_indices[i]
     plot_waves_with_labels(times[index], samples[index], s1vals[i], s2vals[i])
-    
-
 
 modelH = GaussianHMM(n_components=4, covariance_type="diag")
 modelH.fit(numpy.vstack(numpy.array(training_xlabels[0])))
@@ -138,6 +136,13 @@ actual_results[actual_results == 'Systole'] = 1
 actual_results[actual_results == 'S2'] = 2
 actual_results[actual_results == 'Diastole'] = 3
 
+
 modelS = seq.MultinomialHMM()
 modelS.fit(numpy.vstack(numpy.array(seq_xlabels)), numpy.vstack(numpy.array(seq_ylabels)), numpy.array(seq_lengths))
 resultsS = modelS.predict(numpy.vstack(numpy.array(seq_xlabels)), numpy.array(seq_lengths))
+
+HMM_correct = calculate_percent_correct(resultsH, actual_results)
+print("Hmmlearn was", HMM_correct, "percent correct\n")
+SEQ_correct = calculate_percent_correct(resultsS, seq_ylabels)
+print("Seqlearn was", SEQ_correct, "percent correct\n")
+
